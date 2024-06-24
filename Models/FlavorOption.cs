@@ -5,6 +5,8 @@ namespace ECommerceBackend.Models
     public class FlavorOption
     {
         [Required]
+        public int Id { get; set; }
+        [Required]
         public string Flavor { get; set; }
         
         [Range(0, double.MaxValue)]

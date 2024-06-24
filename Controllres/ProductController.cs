@@ -1,78 +1,56 @@
 using Microsoft.AspNetCore.Mvc;
-using ECommerceBackend.Models;
-using ECommerceBackend.Data;
+using ECommerceBackend.Services;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using ECommerceBackend.Models;
 
 namespace ECommerceBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProductsController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<IEnumerable<Product>> Get()
+        private readonly IProductService _productService;
+
+        public ProductController(IProductService productService)
         {
-            return ProductData.GetProducts();
+            _productService = productService;
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Product> Get(int id)
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Product>>> GetAllProducts()
         {
-            var product = ProductData.GetProductById(id);
+            var products = await _productService.GetProductsAsync();
+            return Ok(products);
+        }
+
+        [HttpGet("byid/{id}")]
+        public async Task<ActionResult<Product>> GetProductById(int id)
+        {
+            var product = await _productService.GetProductByIdAsync(id);
             if (product == null)
             {
                 return NotFound();
             }
+            return Ok(product);
+        }
 
-            // Apply global discount
-            ApplyGlobalDiscount(product);
-
-            // Apply size and flavor discounts
-            ApplySizeAndFlavorDiscounts(product);
-
-            return product;
+        [HttpGet("byname/{name}")]
+        public async Task<ActionResult<Product>> GetProductByName(string name)
+        {
+            var product = await _productService.GetProductByNameAsync(name);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return Ok(product);
         }
 
         [HttpPost]
-        public ActionResult<Product> Post([FromBody] Product product)
+        public async Task<ActionResult<Product>> CreateProduct([FromBody] Product newProduct)
         {
-            ProductData.AddProduct(product);
-            return CreatedAtAction(nameof(Get), new { id = product.Id }, product);
-        }
-
-        private void ApplyGlobalDiscount(Product product)
-        {
-            if (product.GlobalDiscount > 0)
-            {
-                foreach (var size in product.Sizes)
-                {
-                    size.BasePrice -= size.BasePrice * product.GlobalDiscount / 100;
-
-                    foreach (var flavor in size.Flavors)
-                    {
-                        flavor.Price -= flavor.Price * product.GlobalDiscount / 100;
-                    }
-                }
-            }
-        }
-
-        private void ApplySizeAndFlavorDiscounts(Product product)
-        {
-            foreach (var size in product.Sizes)
-            {
-                if (size.Discount > 0)
-                {
-                    size.BasePrice -= size.BasePrice * size.Discount / 100;
-                }
-
-                foreach (var flavor in size.Flavors)
-                {
-                    if (flavor.Discount > 0)
-                    {
-                        flavor.Price -= flavor.Price * flavor.Discount / 100;
-                    }
-                }
-            }
+            await _productService.CreateProductAsync(newProduct);
+            return CreatedAtAction(nameof(GetProductById), new { id = newProduct.Id }, newProduct);
         }
     }
 }

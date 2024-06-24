@@ -6,6 +6,8 @@ namespace ECommerceBackend.Models
     public class SizeOption
     {
         [Required]
+        public int Id { get; set; }
+        [Required]
         public string Size { get; set; }
         
         [Range(0, double.MaxValue)]
