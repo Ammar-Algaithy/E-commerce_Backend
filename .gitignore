@@ -1,0 +1,15 @@
+# Ignore configuration files containing sensitive information
+appsettings.json
+appsettings.Development.json
+
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore user-specific files
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
