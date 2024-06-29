@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 
 [Route("api/[controller]")]
+[Authorize]
 [ApiController]
 public class DealsController : ControllerBase
 {

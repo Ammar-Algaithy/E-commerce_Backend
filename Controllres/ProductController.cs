@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
 using ECommerceBackend.Services;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using ECommerceBackend.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ECommerceBackend.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Authorize]
+    [Route("api/products")]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
