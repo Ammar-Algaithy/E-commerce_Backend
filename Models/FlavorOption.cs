@@ -7,7 +7,7 @@ namespace ECommerceBackend.Models
         [Key]
         public int Id { get; set; }
         public string Flavor { get; set; }
-        public decimal Price { get; set; }
+        public decimal finalPrice { get; set; }
         public decimal Discount { get; set; }
         public bool InStock { get; set; }
     }

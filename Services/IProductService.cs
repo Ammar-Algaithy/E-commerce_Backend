@@ -10,5 +10,15 @@ namespace ECommerceBackend.Services
         Task<Product> GetProductByIdAsync(int id);
         Task<Product> GetProductByNameAsync(string name);
         Task CreateProductAsync(Product newProduct);
+
+        Task<List<SizeOption>> GetAvailableSizesByNameOrIdAsync(int? id, string? name);
+
+        Task<Product> UpdateBasePriceAsync(int? productId, int sizeId, string? productName, decimal newPrice);
+
+        Task<List<FlavorOption>> GetProductFlavorsByProductNameOrIdAsync(int? productId, string? productName);
+
+        Task<List<FlavorOption>> GetProductFlavorsByProductNameAndSizeAsync(int? productId, string? productName, int? sizeId, string? sizeName);
+
+        Task<Product> UpdateFinalPriceAsync(int? productId, string? productName, int? sizeId, string? sizeName, int? flavorId, string? flavorName, decimal newPrice);
     }
 }
