@@ -249,5 +249,98 @@ namespace ECommerceBackend.Services
                 return null;
             }
         }
+    
+        public async Task<Product> DeleteProductAsync(int? productId, string? productName)
+        {
+            try
+            {
+                Product product = null;
+                if (productId.HasValue)
+                {
+                    product = await GetProductByIdAsync((int) productId);
+                }
+                else if (!string.IsNullOrEmpty(productName))
+                {
+                    product = await GetProductByNameAsync(productName);
+                }
+                if (product == null)
+                {
+                    return null;
+                }
+                _productData.Products.Remove(product);
+                return product;
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+    
+        public async Task<List<SizeOption>> DeleteSizeAsync(int? productId, string? productName, int? sizeId, string? sizeName)
+        {
+            try
+            {
+                Product product = null;
+                if (productId.HasValue)
+                {
+                    product = await GetProductByIdAsync((int)productId);
+                }
+                else if (!string.IsNullOrEmpty(productName))
+                {
+                    product = await GetProductByNameAsync(productName);
+                }
+                
+                if (product == null)
+                {
+                    return null;
+                }
+
+                SizeOption sizeToDelete = null;
+                if (sizeId.HasValue)
+                {
+                    sizeToDelete = product.Sizes.FirstOrDefault(x => x.Id == sizeId);
+                }
+                else if (!string.IsNullOrEmpty(sizeName))
+                {
+                    sizeToDelete = product.Sizes.FirstOrDefault(x => x.Size == sizeName);
+                }
+
+                if (sizeToDelete == null)
+                {
+                    return null;
+                }
+
+                product.Sizes.Remove(sizeToDelete);
+
+                return product.Sizes.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An error occurred while deleting the size option. "+ ex.Message);
+            }
+        }
+
+        public async Task<List<FlavorOption>> DeleteFlavorAsync(int? productId, string? productName, int? sizeId, string? sizeName, int? flavorId, string? flavorName)
+        {
+            try
+            {
+                List<FlavorOption> flavors = await GetProductFlavorsByProductNameAndSizeAsync(productId, productName, sizeId, sizeName);
+                if (flavors == null)
+                {
+                    return null;
+                }
+                FlavorOption flavorToDelete = flavors.FirstOrDefault(x => x.Id == flavorId || x.Flavor == flavorName);
+                flavors.Remove(flavorToDelete);
+
+                return flavors.ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+    
     }
 }

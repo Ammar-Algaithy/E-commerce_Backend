@@ -20,5 +20,11 @@ namespace ECommerceBackend.Services
         Task<List<FlavorOption>> GetProductFlavorsByProductNameAndSizeAsync(int? productId, string? productName, int? sizeId, string? sizeName);
 
         Task<Product> UpdateFinalPriceAsync(int? productId, string? productName, int? sizeId, string? sizeName, int? flavorId, string? flavorName, decimal newPrice);
+
+        Task<Product> DeleteProductAsync(int? productId, string? productName);
+
+        Task<List<SizeOption>> DeleteSizeAsync(int? productId, string? productName, int? sizeId, string? sizeName);
+
+        Task<List<FlavorOption>> DeleteFlavorAsync(int? productId, string? productName, int? sizeId, string? sizeName, int? flavorId, string? flavorName);
     }
 }

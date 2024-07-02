@@ -117,5 +117,56 @@ namespace ECommerceBackend.Controllers
             return Ok(updatedProduct);
         }
 
+        [HttpDelete("delete-product/")]
+        public async Task<ActionResult<Product>> DeleteProductAsync(int? productId, string? productName)
+        {
+            Product deletedProduct = await _productService.DeleteProductAsync(productId, productName);
+            if (deletedProduct == null)
+            {
+                return NotFound("Prodcut not found.");
+            }
+            return Ok(deletedProduct);
+        }
+
+        [HttpDelete("Delete-Size")]
+        public async Task<ActionResult<List<SizeOption>>> DeleteSize(int? productId, string? productName, int? sizeId, string? sizeName)
+        {
+            try
+            {
+                List<SizeOption> newAvalSizes = await _productService.DeleteSizeAsync(productId, productName, sizeId, sizeName);
+
+                if (newAvalSizes.Count() >= 0)
+                {
+                    return Ok(newAvalSizes);
+                }
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+
+        [HttpDelete("delete-flavor")]
+        public async Task<ActionResult<List<FlavorOption>>> DeleteFlavor(int? productId, string? productName, int? sizeId, string? sizeName, int? flavorId, string? flavorName)
+        {
+            try
+            {
+                List<FlavorOption> updatedFlavors = await _productService.DeleteFlavorAsync(productId, productName, sizeId, sizeName, flavorId, flavorName);
+
+                if (updatedFlavors.Count() != 0)
+                {
+                    return Ok(updatedFlavors);
+                }
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                System.Console.WriteLine(ex.Message);
+                throw;
+            }
+        }
+
     }
 }
