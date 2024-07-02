@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/ammaralgaithy/Downloads/ECommerceApp/ECommerceBackend/ECommerceBackend.csproj": {}
+    "/Users/ammaralgaithy/Downloads/ECommerceApp/E-commerce_Backend/ECommerceBackend.csproj": {}
   },
   "projects": {
-    "/Users/ammaralgaithy/Downloads/ECommerceApp/ECommerceBackend/ECommerceBackend.csproj": {
+    "/Users/ammaralgaithy/Downloads/ECommerceApp/E-commerce_Backend/ECommerceBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/ammaralgaithy/Downloads/ECommerceApp/ECommerceBackend/ECommerceBackend.csproj",
+        "projectUniqueName": "/Users/ammaralgaithy/Downloads/ECommerceApp/E-commerce_Backend/ECommerceBackend.csproj",
         "projectName": "ECommerceBackend",
-        "projectPath": "/Users/ammaralgaithy/Downloads/ECommerceApp/ECommerceBackend/ECommerceBackend.csproj",
+        "projectPath": "/Users/ammaralgaithy/Downloads/ECommerceApp/E-commerce_Backend/ECommerceBackend.csproj",
         "packagesPath": "/Users/ammaralgaithy/.nuget/packages/",
-        "outputPath": "/Users/ammaralgaithy/Downloads/ECommerceApp/ECommerceBackend/obj/",
+        "outputPath": "/Users/ammaralgaithy/Downloads/ECommerceApp/E-commerce_Backend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/ammaralgaithy/.nuget/NuGet/NuGet.Config"
@@ -47,11 +47,25 @@
               "target": "Package",
               "version": "[8.0.6, )"
             },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.6, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.6, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[8.0.6, )"
+            },
+            "Microsoft.Extensions.Configuration.UserSecrets": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.aspnetcore.authentication.jwtbearer": {
               "target": "Package",
               "version": "[8.0.6, )"
             },
